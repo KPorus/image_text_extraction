@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  dev-db:
+    image: postgres:latest
+    container_name: image_extraction
+    environment:
+      POSTGRES_USER: postgres # Set the username
+      POSTGRES_PASSWORD: 123 # Set the password
+      POSTGRES_DB: socialTest # Set the database name
+    ports:
+      - '5436:5432' # Map host port 5432 to container port 5432
+    volumes:
+      - dev_postgres_data:/var/lib/postgresql/data # Separate volume for dev-db
+
+  test-db:
+    image: postgres:latest
+    container_name: postgres_test_container
+    environment:
+      POSTGRES_USER: postgres # Set the username
+      POSTGRES_PASSWORD: 123 # Set the password
+      POSTGRES_DB: socialTest # Set the database name
+    ports:
+      - '5435:5432' # Map host port 5435 to container port 5432
+    volumes:
+      - test_postgres_data:/var/lib/postgresql/data # Separate volume for test-db
+
+volumes:
+  dev_postgres_data: # Separate volume for dev-db
+  test_postgres_data: # Separate volume for test-db
