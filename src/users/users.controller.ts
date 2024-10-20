@@ -21,8 +21,8 @@ export class UsersController {
   constructor(private userService: UsersService) {}
   @HttpCode(200)
   @UseInterceptors(FileInterceptor('file'))
-  @Post('/:id/image_data')
-  addUserData(
+  @Post('/upload/:id')
+  uploadImage(
     @UploadedFile(
       new ParseFilePipe({
         validators: [new FileTypeValidator({ fileType: 'image/jpeg' })],
@@ -30,9 +30,19 @@ export class UsersController {
     )
     file: Express.Multer.File,
     @Param('id', ParseIntPipe) id: number,
-    @Request() req: Request,
   ) {
-    const result = this.userService.uploadData(file, id, req.body['input']);
+    const result = this.userService.uploadData(file, id);
+    return result;
+  }
+
+  @HttpCode(200)
+  @Post('/add/:id')
+  compareUserData(@Param('id', ParseIntPipe) id: number, @Request() res) {
+    const result = this.userService.compareImagesWithId(
+      id,
+      res.body.userId,
+      res.body.input,
+    );
     return result;
   }
 }
