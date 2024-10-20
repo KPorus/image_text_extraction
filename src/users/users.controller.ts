@@ -45,4 +45,10 @@ export class UsersController {
     );
     return result;
   }
+  // @HttpCode(200)
+  // @Post('/test/:id')
+  // testEncrypto(@Param('id', ParseIntPipe) id: number) {
+  //   const result = this.userService.test(id);
+  //   return result;
+  // }
 }
