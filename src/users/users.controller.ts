@@ -4,6 +4,7 @@ import {
   HttpCode,
   Param,
   ParseFilePipe,
+  ParseIntPipe,
   Post,
   Request,
   UploadedFile,
@@ -28,12 +29,10 @@ export class UsersController {
       }),
     )
     file: Express.Multer.File,
-    @Param() id: number,
+    @Param('id', ParseIntPipe) id: number,
     @Request() req: Request,
   ) {
-    console.log(id, req.body['input']);
-    console.log(file);
-    // this.userService.uploadData(file, id, req.body['input']);
-    return 'req';
+    const result = this.userService.uploadData(file, id, req.body['input']);
+    return result;
   }
 }

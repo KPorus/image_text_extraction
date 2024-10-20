@@ -12,10 +12,10 @@ import { S3Module } from './s3/s3.module';
     AuthModule,
     PrismaModule,
     ValidateModule,
+    S3Module,
     ConfigModule.forRoot({
       isGlobal: true,
     }),
-    S3Module,
   ],
 })
 export class AppModule {}
